@@ -25,6 +25,12 @@ def main():
 
     # Explore target column
     print(df['Survived'].unique()) # 0,1; no nulls
+
+    print(f"How many females survived? {len(df[(df['Survived'] == 1) & (df['IsFemale'] == 1)])}")
+    print(f"How many females died? {len(df[(df['Survived'] == 0) & (df['IsFemale'] == 1)])}")
+    print(f"How many males survived? {len(df[(df['Survived'] == 1) & (df['IsFemale'] == 0)])}")
+    print(f"How many males died? {len(df[(df['Survived'] == 0) & (df['IsFemale'] == 0)])}")
+
     # y is the target column we will use to build models
     y = df['Survived'].astype(bool).copy()
 
@@ -80,8 +86,8 @@ def main():
     X = df.drop(['Survived', 'Name', 'Sex', 'Ticket', 'PassengerId', 'Cabin'], axis=1).copy()
 
     # Save cleaned data to csvs
-    X.to_csv('X.csv')
-    y.to_csv('y.csv')
+    X.to_csv('data/X.csv', index=False)
+    y.to_csv('data/y.csv', index=False)
 
 
 if __name__ == "__main__":
