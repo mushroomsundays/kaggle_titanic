@@ -22,16 +22,8 @@ def main():
     print(y.head())
     print(y.columns)
 
-    X_encoded = pd.get_dummies(X, columns=['Embarked', 'CabinLetter'])
-    # Cabin letter T doesn't exist in test.csv; drop that dummy
-    X_encoded.drop(['CabinLetter_T'], axis=1, inplace=True)
-    print(X_encoded.dtypes)
-    print(y.dtypes)
-    # check for nulls in X_encoded
-    print(X_encoded.isna().any())
-
     # Split into train and test
-    X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, random_state=42, stratify=y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, stratify=y)
 
     # Build the model, a forest of extreme gradient boosted trees
     clf_xgb = xgb.XGBClassifier(objective='binary:logistic', missing=1, seed=42)
